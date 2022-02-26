@@ -1,0 +1,49 @@
+<div>
+    <h2>Plazos</h2>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Número de semanas</th>
+                <th>Tasa Normal</th>
+                <th>Tasa Puntual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plazo of plazos">
+                <td>{{plazo.semanas}}</td>
+                <td>{{plazo.tasanormal}}</td>
+                <td>{{plazo.tasapuntual}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div>
+    <button (click)="registroPlazo()" class="btn btn-primary">Agregar Plazo</button>
+</div>
+
+<div *ngIf="status">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="text-center">Resgistrar un producto</h2>
+        <form form [formGroup] = "formularioRegistroPlazo" (ngSubmit)="guardarPlazo()">
+            <div class="form-group">
+                <label for="semanas">Semanas</label><br>
+                <input type="number" class="form-control" id="semanas" formControlName="semanas"><br>
+            </div>
+                    
+            <div class="form-group">
+                <label for="tasanormal">Tasa Normal</label><br>
+                <input type="number" class="form-control" id="tasanormal" formControlName="tasanormal"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="tasapuntual">Tasa puntual</label><br>
+                <input type="number" class="form-control" id="tasapuntual" formControlName="tasapuntual"><br>
+            </div>
+        
+            <input class="btn btn-success" type="submit" value="Guardar">
+            <button class="btn btn-danger" (click)="registroPlazo()">Cancelar</button>
+        </form>
+    </div>
+</div>
