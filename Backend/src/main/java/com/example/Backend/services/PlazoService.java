@@ -1,6 +1,7 @@
 package com.example.Backend.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.Backend.models.Plazo;
 import com.example.Backend.repositories.PlazoRepository;
@@ -20,5 +21,9 @@ public class PlazoService {
     public String guardarPlazo(Plazo plazo) {
         PlazoRepository.save(plazo);
         return "guardado correctamente";
+    }
+
+    public List<Plazo> BuscarPorPalabra(Integer palabra) {
+        return PlazoRepository.EncontrarPorPalabra(palabra);
     }
 }

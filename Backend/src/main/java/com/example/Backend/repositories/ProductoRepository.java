@@ -11,6 +11,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductoRepository extends JpaRepository<Producto,Long>{
     
-    @Query(value = "select * from productos pro where pro.nombre like %:keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM producto pro WHERE pro.nombre LIKE %:keyword%", nativeQuery = true)
     List<Producto> EncontrarPorPalabra(@Param("keyword") String keyword);
 }

@@ -52,9 +52,8 @@ public class ProductoController {
     }
 
     @PostMapping("search")
-    public List<Producto> BuscarFlor(@RequestParam("query") String query){
-        var nombre = ProductoService.Buscarporpalabra(query);
-        System.out.println(nombre);
+    public List<Producto> BuscarProducto(@RequestParam("query") String query){
+        var nombre = ProductoService.BuscarPorPalabra(query);
         return nombre;
     }
 }

@@ -36,7 +36,11 @@ public class ProductoService {
         ProductoRepository.deleteById(id);
     }
 
-    public List<Producto> Buscarporpalabra(String query) {
-        return null;
+    public List<Producto> BuscarPorPalabra(String palabra) {
+        if(palabra != null){
+            return ProductoRepository.EncontrarPorPalabra(palabra);
+        }else{
+            return ProductoRepository.findAll();
+        }
     }
 }

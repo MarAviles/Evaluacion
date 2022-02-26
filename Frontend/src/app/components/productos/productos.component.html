@@ -1,53 +1,52 @@
 <div>
-    <div>
-        <h2>Productos Registrados</h2>
-        <table class="table table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let producto of productos">
-                    <td>{{producto.nombre}} </td>
-                    <td>${{producto.precio}}</td>
-                    <td>
-                        <button class="btn btn-success" (click)="obtenerProducto(producto.id)">Editar</button>
-                        <button class="btn btn-danger" (click)="eliminarProducto(producto.id)">Eliminar</button>
-                    </td>
-                    
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h2>Productos Registrados</h2>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{producto.nombre}} </td>
+                <td>${{producto.precio}}</td>
+                <td>
+                    <button class="btn btn-success" (click)="obtenerProducto(producto.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="eliminarProducto(producto.id)">Eliminar</button>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div>
-        <button (click)="registro()" class="btn btn-primary">Agregar Producto</button>
-    </div>
+<div>
+    <button (click)="registro()" class="btn btn-primary" data-toggle="modal" data-target="#contenedor-modal">Agregar Producto</button>
+</div>
 
-    <div *ngIf="status">
-        <div class="col-md-6 offset-md-3">
-            <h2 class="text-center">Resgistrar un producto</h2>
-            <form form [formGroup] = "formularioRegistro" (ngSubmit)="guardarProducto()">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label><br>
-                    <input type="text" class="form-control" id="nombre" formControlName="nombre"><br>
-                </div>
+<div *ngIf="status">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="text-center">Resgistrar un producto</h2>
+        <form [formGroup] = "formularioRegistro" (ngSubmit)="guardarProducto()">
+            <div class="form-group">
+                <label for="nombre">Nombre</label><br>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre"><br>
+            </div>
                         
-                <div class="form-group">
-                    <label for="precio">Precio</label><br>
-                    <input type="number" class="form-control" id="precio" formControlName="precio"><br>
-                </div>
+            <div class="form-group">
+                <label for="precio">Precio</label><br>
+                <input type="number" class="form-control" id="precio" formControlName="precio"><br>
+            </div>
             
-                <input class="btn btn-success" type="submit" value="Guardar">
-                <button class="btn btn-danger" (click)="registro()">Cancelar</button>
-            </form>
-        </div>
+            <input class="btn btn-success" type="submit" value="Guardar">
+            <button class="btn btn-danger" (click)="registro()">Cancelar</button>
+        </form>
     </div>
+</div>
 
-    <div class="modal-dialog modal-dialog-centered" *ngIf="statusFormEditar">
+    <div *ngIf="statusFormEditar">
         <div class="col-md-6 offset-md-3">
             <h2 class="text-center">Editar</h2>
             <form (ngSubmit)="guardarProducto()">
@@ -66,5 +65,3 @@
             </form>
         </div>
     </div>
-    
-</div>

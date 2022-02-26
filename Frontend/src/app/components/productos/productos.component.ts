@@ -58,8 +58,6 @@ export class ProductosComponent implements OnInit {
         console.log("Producto guardado correctamente");
         
       });
-      this.obtenerProductos();
-      
     }else{
       this.ProductoService.editarProducto(this.idProducto,nombre,precio).subscribe(() =>{
         this.obtenerProductos();
@@ -69,6 +67,8 @@ export class ProductosComponent implements OnInit {
         this.statusFormEditar = false;  
       })
     }
+    this.status = false;
+    this.obtenerProductos();
   }
 
   limpiarForm(){

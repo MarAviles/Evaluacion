@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from 'src/app/interfaces/producto';
 
@@ -34,5 +34,12 @@ export class ProductoService {
     console.log(obj)
     return this.HttpClient.put(this.url+'/editar/'+idProducto,obj)
   }
+
+  buscarPalabra(palabra: string){
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('query', palabra);
+    return this.HttpClient.post(this.url+'/search/', searchParams);
+  }
+
 
 }
