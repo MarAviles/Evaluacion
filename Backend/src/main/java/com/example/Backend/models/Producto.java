@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table
+@Table(name="producto")
 public class Producto {
     
     @Id @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -44,5 +44,15 @@ public class Producto {
 
     public void setPrecio(Float precio){
         this.precio = precio;
+    }
+
+    public void setAll(Producto producto){
+        if(producto.getNombre() != ""){
+            this.setNombre(producto.getNombre());
+        }
+
+        if(producto.getPrecio() != 0){
+            this.setPrecio(producto.getPrecio());
+        }
     }
 }

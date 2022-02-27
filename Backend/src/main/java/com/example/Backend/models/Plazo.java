@@ -1,6 +1,5 @@
 package com.example.Backend.models;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="plazo")
 public class Plazo {
 
     @Id @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false )
-    
-    private long id;
-    private Integer semanas;
+
+    private Long id;
+    private Long semanas;
     private Float tasanormal;
     private Float tasapuntual;
 
@@ -28,28 +27,30 @@ public class Plazo {
         this.id = id;
     }
 
-    public Integer getSemanas() {
+    public Long getSemanas() {
         return semanas;
     }
 
-    public void setSemanas(Integer semanas){
+    public void setSemanas(Long semanas){
         this.semanas = semanas;
     }
 
-    public Float getTasanormal() {
+    public Float getTasanormal(){
         return tasanormal;
     }
 
-    public void setSemanas(Float tasanormal){
+    public void setTasanormal(Float tasanormal){
         this.tasanormal = tasanormal;
     }
 
-    public Float getTasapuntual() {
+    public Float getTasapuntual(){
         return tasapuntual;
     }
 
     public void setTasapuntual(Float tasapuntual){
         this.tasapuntual = tasapuntual;
     }
+
+
 
 }

@@ -28,8 +28,11 @@ public class ProductoService {
         return ProductoRepository.findById(id);
     }
 
-    public void editarProducto(Producto producto){
-        ProductoRepository.saveAndFlush(producto);
+    public void editarProducto(Long id, Producto producto){
+        System.out.println("este es el id"+id);
+        Producto updateP = ProductoRepository.findById(id).get();
+        updateP.setAll(producto);
+        ProductoRepository.save(updateP);
     }
 
     public void eliminarProducto(Long id){
@@ -37,10 +40,6 @@ public class ProductoService {
     }
 
     public List<Producto> BuscarPorPalabra(String palabra) {
-        if(palabra != null){
-            return ProductoRepository.EncontrarPorPalabra(palabra);
-        }else{
-            return ProductoRepository.findAll();
-        }
+        return ProductoRepository.EncontrarPorPalabra(palabra);
     }
 }

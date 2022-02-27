@@ -1,29 +1,24 @@
 package com.example.Backend.services;
 
+
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.Backend.models.Plazo;
 import com.example.Backend.repositories.PlazoRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlazoService {   
+public class PlazoService {
     @Autowired
     PlazoRepository PlazoRepository;
 
-    public ArrayList<Plazo> TodosLosPlazos(){
+    public ArrayList<Plazo> todosLosPlazos(){
         return (ArrayList<Plazo>) PlazoRepository.findAll();
     }
 
-    public String guardarPlazo(Plazo plazo) {
+    public String guardarPlazo(Plazo plazo){
         PlazoRepository.save(plazo);
         return "guardado correctamente";
-    }
-
-    public List<Plazo> BuscarPorPalabra(Integer palabra) {
-        return PlazoRepository.EncontrarPorPalabra(palabra);
     }
 }

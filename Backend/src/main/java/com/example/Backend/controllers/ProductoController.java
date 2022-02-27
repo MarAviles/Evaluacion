@@ -27,11 +27,11 @@ public class ProductoController {
     ProductoService ProductoService;
 
     @GetMapping()
-    public ArrayList<Producto> conseguirEmpleado(){
+    public ArrayList<Producto> conseguirProducto(){
         return ProductoService.TodoslosProductos();
     }
 
-    @PostMapping()
+    @PostMapping("/guardar")
     public String guardarProducto(@RequestBody Producto producto){
         return ProductoService.guardar(producto);
     }
@@ -41,9 +41,10 @@ public class ProductoController {
         return ProductoService.obtenerId(id);
     }
 
-    @PutMapping("editar/{id}")
-    public void editarProducto(@RequestBody Producto producto){
-        ProductoService.editarProducto(producto);
+    @PutMapping("/editar/{id}")
+    public void editarProducto(@PathVariable("id") Long id, @RequestBody Producto producto){
+        System.out.println("este es el id"+id);
+        ProductoService.editarProducto(id, producto);
     }
 
     @DeleteMapping("/eliminar/{id}")
@@ -51,7 +52,7 @@ public class ProductoController {
         ProductoService.eliminarProducto(id);
     }
 
-    @PostMapping("search")
+    @PostMapping("/search")
     public List<Producto> BuscarProducto(@RequestParam("query") String query){
         var nombre = ProductoService.BuscarPorPalabra(query);
         return nombre;
