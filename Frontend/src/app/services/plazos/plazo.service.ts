@@ -16,7 +16,7 @@ export class PlazoService {
     return this.HttpClient.get<Plazo[]>(`${this.url}`);
   }
 
-  registrarPlazo(producto: Plazo): Observable<Plazo[]>{
-    return this.HttpClient.post<Plazo[]>(`${this.url}`, producto);
+  registrarPlazo(plazo: Plazo){
+    return this.HttpClient.post(this.url, plazo);
   }
 }

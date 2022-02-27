@@ -16,8 +16,8 @@ export class ProductoService {
     return this.HttpClient.get<Producto[]>(`${this.url}`);
   }
 
-  registrarProducto(producto: Producto): Observable<Producto[]>{
-    return this.HttpClient.post<Producto[]>(`${this.url}`, producto);
+  registrarProducto(producto: Producto){
+    return this.HttpClient.post(this.url+'/guardar', producto);
   }
 
   obtenerProducto(id: number):Observable<Producto>{
@@ -30,7 +30,7 @@ export class ProductoService {
   }
 
   editarProducto(idProducto:number, nombre:string, precio:number){
-    let obj = { nombre, precio}
+    let obj = {nombre, precio}
     console.log(obj)
     return this.HttpClient.put(this.url+'/editar/'+idProducto,obj)
   }

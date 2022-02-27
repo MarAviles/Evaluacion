@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Plazo } from 'src/app/interfaces/plazo';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { PlazoService } from 'src/app/services/plazos/plazo.service';
 
 @Component({
@@ -17,9 +18,9 @@ export class PlazosComponent implements OnInit {
   });
 
   plazos: Plazo[]=[];
-  status = false;
+  closeResult = '';
 
-  constructor(private FormBuilder: FormBuilder, private PlazoService: PlazoService) { }
+  constructor(private FormBuilder: FormBuilder, private PlazoService: PlazoService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.obtenerPlazos();
@@ -35,17 +36,32 @@ export class PlazosComponent implements OnInit {
   guardarPlazo(){
   console.log(this.formularioRegistroPlazo.value);
       this.PlazoService.registrarPlazo(this.formularioRegistroPlazo.value).subscribe((res: any)=>{
-        console.log("Plazo guardado correctamente"); 
-        this.status = false;      
+        console.log(res);  
+        this.obtenerPlazos(); 
+      }, (err) =>{
+        this.obtenerPlazos();
       });
-      this.obtenerPlazos();
+      
   }
 
-  registroPlazo(){
-    if(this.status == false){
-      this.status = true;
-    }else {
-      this.status = false;
-    } 
+
+  //Modal
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason: any) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 }

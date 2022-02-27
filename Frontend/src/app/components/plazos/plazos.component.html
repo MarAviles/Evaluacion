@@ -18,15 +18,15 @@
     </table>
 </div>
 
-
-<div>
-    <button (click)="registroPlazo()" class="btn btn-primary">Agregar Plazo</button>
-</div>
-
-<div *ngIf="status">
-    <div class="col-md-6 offset-md-3">
-        <h2 class="text-center">Resgistrar un producto</h2>
-        <form form [formGroup] = "formularioRegistroPlazo" (ngSubmit)="guardarPlazo()">
+<!--Model registro-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Resgistrar un plazo</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form form [formGroup] = "formularioRegistroPlazo" (ngSubmit)="guardarPlazo()">
+        <div class="mb-3">
             <div class="form-group">
                 <label for="semanas">Semanas</label><br>
                 <input type="number" class="form-control" id="semanas" formControlName="semanas"><br>
@@ -41,9 +41,14 @@
                 <label for="tasapuntual">Tasa puntual</label><br>
                 <input type="number" class="form-control" id="tasapuntual" formControlName="tasapuntual"><br>
             </div>
-        
-            <input class="btn btn-success" type="submit" value="Guardar">
-            <button class="btn btn-danger" (click)="registroPlazo()">Cancelar</button>
-        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar</button>
+          </div>
+      </form>
     </div>
-</div>
+  </ng-template>
+  
+  <button class="btn btn-primary" (click)="open(content)">Agregar Plazo</button>
+
+

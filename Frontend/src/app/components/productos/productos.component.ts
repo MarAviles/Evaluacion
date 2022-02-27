@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/interfaces/producto';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 
@@ -25,8 +26,10 @@ export class ProductosComponent implements OnInit {
   precio: FormControl = new FormControl(null)
   idProducto = 0;
     
+  closeResult = '';
 
-  constructor(private ProductoService: ProductoService, private FormBuilder: FormBuilder) { }
+  constructor(private ProductoService: ProductoService, private FormBuilder: FormBuilder,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.obtenerProductos();
@@ -55,8 +58,10 @@ export class ProductosComponent implements OnInit {
     if(this.idProducto === 0){
       console.log(this.formularioRegistro.value);
       this.ProductoService.registrarProducto(this.formularioRegistro.value).subscribe((res: any)=>{
-        console.log("Producto guardado correctamente");
-        
+        console.log(res);
+        this.obtenerProductos();
+      }, (err) =>{
+        this.obtenerProductos();
       });
     }else{
       this.ProductoService.editarProducto(this.idProducto,nombre,precio).subscribe(() =>{
@@ -67,7 +72,6 @@ export class ProductosComponent implements OnInit {
         this.statusFormEditar = false;  
       })
     }
-    this.status = false;
     this.obtenerProductos();
   }
 
@@ -85,13 +89,14 @@ export class ProductosComponent implements OnInit {
   }
 
   //Obtener producto por id
-  obtenerProducto(id: number):void{
+  obtenerProducto(id: number, content: any):void{
     this.ProductoService.obtenerProducto(id).subscribe(res => {
       this.statusFormEditar = true;
       console.log(res); 
       this.nombre.setValue(res.nombre)
       this.precio.setValue(res.precio)
       this.idProducto = res.id;
+      this.open(content);
     })
   }
 
@@ -103,7 +108,24 @@ export class ProductosComponent implements OnInit {
   }
 
   
+  //Modal
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason: any) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
 
 }

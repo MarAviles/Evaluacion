@@ -1,4 +1,52 @@
-<h2>Buscar producto</h2>
+<!--Model editar-->
+<ng-template #contentPlazo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Resgistrar un producto</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Plazo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let plazo of plazos">
+                    <td>{{plazo.semanas}} semanas</td>     
+                    <td> <button class="btn btn-success" (click)="obtenerCotizacion(plazo.semanas,plazo.tasanormal, plazo.tasapuntual)">Ver cotización</button></td>                   
+                </tr>
+            </tbody>
+        </table>
+    
+        <div>
+            <table class="table table-striped" *ngIf="status1">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Plazo</th>
+                        <th>Abono normal</th>
+                        <th>Abono puntual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>{{semanas}} semanas</td> 
+                    <td>{{abonoNormal}}</td>  
+                    <td>{{abonoPuntual}}</td>   
+                </tbody>
+            </table> 
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Cerrar</button>
+        </div>
+    </div>
+  </ng-template>
+  
+
+
+
+<h2>Cotizaciones</h2>
 
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
@@ -22,17 +70,8 @@
             <tr *ngFor="let producto of productos">
                 <td>{{producto.nombre}} </td>
                 <td>${{producto.precio}}</td>   
-                <td><button class="btn btn-success" (click)="obtenerProducto(producto.precio)">Ver Plazos</button></td>            
+                <td><button class="btn btn-success" (click)="obtenerProducto(producto.precio, contentPlazo)">Ver Plazos</button></td>            
             </tr>
         </tbody>
     </table>
-</div>
-
-<div *ngIf="status">
-   <form [formGroup] = "formulario" (ngSubmit)="calcularCotizacion()">
-        <select formControlName="semanas">
-            <option *ngFor="let plazo of plazos">{{plazo.semanas}}</option>
-        </select>
-        <input class="btn btn-success" type="submit" value="Cotizar">
-   </form>
 </div>
