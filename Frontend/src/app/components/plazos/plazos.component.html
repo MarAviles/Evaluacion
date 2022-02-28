@@ -1,0 +1,54 @@
+<div>
+    <h2>Plazos</h2>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Número de semanas</th>
+                <th>Tasa Normal</th>
+                <th>Tasa Puntual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plazo of plazos">
+                <td>{{plazo.semanas}}</td>
+                <td>{{plazo.tasanormal}}</td>
+                <td>{{plazo.tasapuntual}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--Model registro-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Resgistrar un plazo</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form form [formGroup] = "formularioRegistroPlazo" (ngSubmit)="guardarPlazo()">
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="semanas">Semanas</label><br>
+                <input type="number" class="form-control" id="semanas" formControlName="semanas"><br>
+            </div>
+                    
+            <div class="form-group">
+                <label for="tasanormal">Tasa Normal</label><br>
+                <input type="number" class="form-control" id="tasanormal" formControlName="tasanormal"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="tasapuntual">Tasa puntual</label><br>
+                <input type="number" class="form-control" id="tasapuntual" formControlName="tasapuntual"><br>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar</button>
+          </div>
+      </form>
+    </div>
+  </ng-template>
+  
+  <button class="btn btn-primary" (click)="open(content)">Agregar Plazo</button>
+
+

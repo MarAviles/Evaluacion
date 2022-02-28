@@ -1,0 +1,78 @@
+<!--Model editar-->
+<ng-template #contentPlazo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Resgistrar un producto</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Plazo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let plazo of plazos">
+                    <td>{{plazo.semanas}} semanas</td>     
+                    <td> <button class="btn btn-success" (click)="obtenerCotizacion(plazo.semanas,plazo.tasanormal, plazo.tasapuntual)">Ver cotización</button></td>                   
+                </tr>
+            </tbody>
+        </table>
+    
+        <div>
+            <table class="table table-striped" *ngIf="status1">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Plazo</th>
+                        <th>Abono normal</th>
+                        <th>Abono puntual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>{{semanas}} semanas</td> 
+                    <td>{{abonoNormal}}</td>  
+                    <td>{{abonoPuntual}}</td>   
+                </tbody>
+            </table> 
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Cerrar</button>
+        </div>
+    </div>
+  </ng-template>
+  
+
+
+
+<h2>Cotizaciones</h2>
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <form class="d-flex" (ngSubmit)="buscarProducto()">
+        <label class="tex-align-center">Buca un producto</label>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="nombre">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+<div>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Plazos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{producto.nombre}} </td>
+                <td>${{producto.precio}}</td>   
+                <td><button class="btn btn-success" (click)="obtenerProducto(producto.precio, contentPlazo)">Ver Plazos</button></td>            
+            </tr>
+        </tbody>
+    </table>
+</div>
